@@ -6,17 +6,21 @@ public class DoublyLinkedList<E> implements MyList<E>, Iterable<E> {
     private Node<E> head;
     private Node<E> tail;
     private int size;
+    private String name;
 
-    public DoublyLinkedList(String portal) {
-    }
-
-    public static void main(String[] args) {
-
+    public DoublyLinkedList(String name) {
+        head = tail = null;
+        this.name = name;
+        size = 0;
     }
 
     @Override
     public int getSize() {
         return size;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public boolean isEmpty() {

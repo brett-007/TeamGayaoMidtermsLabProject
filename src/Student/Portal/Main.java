@@ -53,16 +53,53 @@ public class Main {
             [5] Search student only
          */
 
-//        SAMPLE ADDITION TO THE PORTAL LIST
-//        DoublyLinkedList<Student> program = new DoublyLinkedList<>("program");
-//        program.insert(new Student());
-//
-//        DoublyLinkedList<DoublyLinkedList<Student>> school = new DoublyLinkedList<>("school");
-//        school.insert(program);
-//
-//        portal.insert(school);
+        /* SAMPLE ADDITION TO THE PORTAL LIST
+        DoublyLinkedList<Student> program = new DoublyLinkedList<>("program");
+        program.insert(new Student());
 
-        // [5] Search Feature (by name or ID number)
+        DoublyLinkedList<DoublyLinkedList<Student>> school = new DoublyLinkedList<>("school");
+        school.insert(program);
+
+        portal.insert(school);
+
+        */
+
+        do{
+            try {
+                System.out.println("""
+                        --- PORTAL MAIN MENU ---
+                        [1] View School information
+                        [2] Add new branches
+                        [3] Update branches
+                        [4] Delete branches
+                        [5] Search Student
+                        [6] Exit Program
+                        """);
+                System.out.print("Enter choice: ");
+                int choice = Integer.parseInt(input.nextLine());
+
+                switch (choice){
+                    case 1 -> System.out.println();
+                    case 2 -> System.out.println();
+                    case 3 -> System.out.println();
+                    case 4 -> System.out.println();
+                    case 5 -> searchMenu();
+                    case 6 -> {
+                        System.out.println("Thank you for using the School Management Portal. \nExiting Program...");
+                        System.exit(0);
+                    }
+
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Choice. Please select a number with a corresponding action");
+            }
+        } while (true);
+
+    }
+
+    private static void searchMenu(){
+        // [5] Search Feature (by name or ID number) - lara
         boolean running = true;
         while (running) {
             System.out.println("\n--- PORTAL SEARCH MENU ---");
@@ -134,4 +171,8 @@ public class Main {
 
         if (!found) {System.out.println("\nNo student found with ID number: " + id);}
     }
+
+
+
+
 }
