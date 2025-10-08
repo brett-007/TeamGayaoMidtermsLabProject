@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     static Scanner input = new Scanner(System.in);
-    private static DoublyLinkedList<DoublyLinkedList<DoublyLinkedList<Student>>> portal = new DoublyLinkedList<>("portal");
+    private static final DoublyLinkedList<DoublyLinkedList<DoublyLinkedList<Student>>> portal = new DoublyLinkedList<>("portal");
 
     public static void main(String[] args) {
         /*
@@ -51,10 +51,6 @@ public class Main {
             [4] Delete school, program, and student
                 - select if school, program, or student to delete
             [5] Search student only
-
-
-
-
          */
 
 //        SAMPLE ADDITION TO THE PORTAL LIST
@@ -65,5 +61,77 @@ public class Main {
 //        school.insert(program);
 //
 //        portal.insert(school);
+
+        // [5] Search Feature (by name or ID number)
+        boolean running = true;
+        while (running) {
+            System.out.println("\n--- PORTAL SEARCH MENU ---");
+            System.out.println("[1] Search Student by Name");
+            System.out.println("[2] Search Student by ID Number");
+            System.out.println("[0] Exit");
+            System.out.print("Enter choice: ");
+            int choice = input.nextInt();
+            input.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Student Name (First or Last): ");
+                    String name = input.nextLine().trim().toLowerCase();
+                    searchStudentByName(name);
+                    break;
+                case 2:
+                    System.out.print("Enter Student ID Number: ");
+                    int id = input.nextInt();
+                    searchStudentById(id);
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Exiting search menu...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void searchStudentByName(String name) { boolean found = false;
+        for (int i = 0; i < portal.getSize(); i++) {DoublyLinkedList<DoublyLinkedList<Student>> school = portal.getElement(i);
+            for (int j = 0; j < school.getSize(); j++) { DoublyLinkedList<Student> program = school.getElement(j);
+                for (int k = 0; k < program.getSize(); k++) {
+                    Student s = program.getElement(k);
+                    String fullName = (s.getFirstName() + " " + s.getLastName()).toLowerCase();
+
+                    if (fullName.contains(name)) {
+                        System.out.println("\n[FOUND]");
+                        System.out.println("Name: " + s.getFirstName() + " " + s.getLastName());
+                        System.out.println("Program: " + s.getProgram());
+                        System.out.println("Year Level: " + s.getYearLevel());
+                        System.out.println("ID Number: " + s.getStudentId());
+                        System.out.println("School Email: " + s.getSchoolEmail());
+                        found = true; }
+                }
+            }
+        }
+        if (!found) {System.out.println("\nNo student found with the name: " + name);}
+    }
+
+    private static void searchStudentById(int id) { boolean found = false;
+        for (int i = 0; i < portal.getSize(); i++) { DoublyLinkedList<DoublyLinkedList<Student>> school = portal.getElement(i);
+            for (int j = 0; j < school.getSize(); j++) { DoublyLinkedList<Student> program = school.getElement(j);
+                for (int k = 0; k < program.getSize(); k++) { Student s = program.getElement(k);
+
+                    if (s.getStudentId() == id) {
+                        System.out.println("\n[FOUND]");
+                        System.out.println("Name: " + s.getFirstName() + " " + s.getLastName());
+                        System.out.println("Program: " + s.getProgram());
+                        System.out.println("Year Level: " + s.getYearLevel());
+                        System.out.println("ID Number: " + s.getStudentId());
+                        System.out.println("School Email: " + s.getSchoolEmail());
+                        found = true;}
+                }
+            }
+        }
+
+        if (!found) {System.out.println("\nNo student found with ID number: " + id);}
     }
 }
