@@ -17,17 +17,21 @@ public class DoublyLinkedList<E> implements MyList<E> {
 
     Node<E>  head;
     Node<E>  tail;
+    String name;
     int size;
     static Scanner kbd = new Scanner(System.in);
 
     /**
      * Constructs an empty doubly linked list.
      */
-    DoublyLinkedList() {
+    DoublyLinkedList(String name) {
         head = null;
         tail = null;
         size = 0;
+        this.name = name;
     }
+
+
 
     /**
      * Runs a menu-driven program to demonstrate
@@ -36,7 +40,7 @@ public class DoublyLinkedList<E> implements MyList<E> {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args){
-        DoublyLinkedList<Integer> numbers = new DoublyLinkedList<>();
+        DoublyLinkedList<Integer> numbers = new DoublyLinkedList<>("");
 
         numbers.insert(10);
         numbers.insert(20);
