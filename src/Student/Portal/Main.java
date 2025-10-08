@@ -79,7 +79,7 @@ public class Main {
                 int choice = Integer.parseInt(input.nextLine());
 
                 switch (choice){
-                    case 1 -> System.out.println();
+                    case 1 -> viewMenu();
                     case 2 -> System.out.println();
                     case 3 -> System.out.println();
                     case 4 -> System.out.println();
@@ -173,6 +173,125 @@ public class Main {
     }
 
 
+    // Design so that user can go back to previous level (ex. from program to school)
+    private static void viewMenu(){
+        while (true){
+            printPortal();
+            System.out.print("Enter school name [enter \"exit\" to return to main menu]: ");
+            String schoolChoice = input.nextLine();
+            DoublyLinkedList<DoublyLinkedList<Student>> school = null;
 
+            if (schoolChoice.equalsIgnoreCase("exit")) {
+                System.out.println("Returning to Main Menu.");
+                return;
+            }
+
+            // Find copy of school
+            for (int x = 0; x < portal.getSize(); x++) {
+                if (portal.getElement(x).getName().equalsIgnoreCase(schoolChoice)){
+                    school = portal.getElement(x);
+                    break;
+                }
+            }
+
+            // Checks if school exists
+            if (school == null){
+                System.out.println("\nInvalid choice. Please try again.");
+                viewMenu();
+            }
+
+            viewSchool(school);
+
+        }
+    }
+
+    private static void viewSchool(DoublyLinkedList<DoublyLinkedList<Student>> school){
+        while (true) {
+            printSchool(school);
+            System.out.println("Enter program name [enter \"exit\" to return to main menu OR \"prev\" to return previous menu]: ");
+            String programChoice = input.nextLine();
+            DoublyLinkedList<Student> program = null;
+
+            if (programChoice.equalsIgnoreCase("exit")) {
+                System.out.println("Returning to Main Menu.");
+                main(null);
+            } else if (programChoice.equalsIgnoreCase("prev")) {
+                System.out.println("Returning to Previous Menu.");
+                return;
+            } else {
+                // Find copy of program
+                for (int x = 0; x < school.getSize(); x++) {
+                    if (school.getElement(x).getName().equalsIgnoreCase(programChoice)){
+                        program = school.getElement(x);
+                        break;
+                    }
+                }
+
+                // Checks if program exists
+                if (program == null){
+                    System.out.println("\nInvalid choice. Please try again.");
+                    viewSchool(school);
+                }
+
+                viewProgram(program);
+            }
+        }
+    }
+
+    private static void viewProgram(DoublyLinkedList<Student> program){
+        while (true) {
+            printProgram(program);
+            System.out.println("Enter ID number [enter \"exit\" to return to main menu OR \"prev\" to return previous menu]: ");
+            String studentChoice = input.nextLine();
+            Student student = null;
+
+            if (studentChoice.equalsIgnoreCase("exit")) {
+                System.out.println("Returning to Main Menu.");
+                main(null);
+            } else if (studentChoice.equalsIgnoreCase("prev")) {
+                System.out.println("Returning to Previous Menu.");
+                return;
+            } else {
+                // Find copy of student
+                for (int x = 0; x < program.getSize(); x++) {
+                    if (studentChoice.equalsIgnoreCase(program.getElement(x).getLastName() + program.getElement(x).getFirstName())){
+                        student = program.getElement(x);
+                        break;
+                    }
+                }
+
+                // Checks if student exists
+                if (student == null){
+                    System.out.println("\nInvalid choice. Please try again.");
+                    viewProgram(program);
+                }
+
+                System.out.println(student.toString());
+                System.out.print("Press enter to continue.");
+                input.nextLine();
+
+                viewProgram(program);
+            }
+
+        }
+    }
+
+    private static void printPortal(){
+        for (int x = 0; x < portal.getSize(); x++) {
+            System.out.println((x + 1) + ". " + portal.getElement(x).getName());
+        }
+    }
+
+    private static void printSchool(DoublyLinkedList<DoublyLinkedList<Student>> school){
+        for (int x = 0; x < school.getSize(); x++) {
+            System.out.println((x + 1) + ". " + school.getElement(x).getName());
+        }
+    }
+
+    private static void printProgram(DoublyLinkedList<Student> program){
+        for (int x = 0; x < program.getSize(); x++) {
+            System.out.println((x + 1) + ". " + program.getElement(x).getLastName() + ", " + program.getElement(x).getFirstName());
+        }
+    }
 
 }
