@@ -174,6 +174,7 @@ public class Main {
 
 
     // Design so that user can go back to previous level (ex. from program to school)
+    // To be checked (not yet executed, logic based only)
     private static void viewMenu(){
         while (true){
             printPortal();
